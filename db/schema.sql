@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS entrada_db;
+CREATE DATABASE entrada_db;
