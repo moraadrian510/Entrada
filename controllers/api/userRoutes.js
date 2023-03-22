@@ -1,7 +1,38 @@
 const router = require("express").Router();
-const { User } = require("../../models");
+const { User, Post, Comment } = require('../../models');
 
 
+//Get all users
+router.get('/', async (req, res) => {
+  try {
+    const userData = await User.findAll({
+      include: [{ model: Post }],
+      exclude: ['password']
+    });
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(404).json(err);
+  };
+});
+
+//Get a specific user
+router.get('/:id', async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.params.id, {
+      include: [{ model: post}, { model: Comment}],
+      exclude: ['password']
+    });
+
+    if (!userData) {
+      res.status(404).json({ message: 'No user with that id found !'})
+    }
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(404).json(err);
+  };
+});
+
+// Create a user
 router.post('/', async (req, res) => {
   try {
     const userData = await User.create(req.body);
