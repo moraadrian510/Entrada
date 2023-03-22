@@ -1,6 +1,8 @@
 # Entrada
+<a align="right">
  <img src="public/images/ENTRADA-LOGO.png" alt="mappingDash" title="mappingDash"  height="300" width="400" />
- 
+</a>
+
 ## Table of Contents
 
 - [Overview](#overview)
