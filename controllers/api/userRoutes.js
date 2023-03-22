@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Post, Comment } = require('../../models');
+const { User, Comment } = require('../../models');
 
 
 //Get all users
@@ -31,6 +31,24 @@ router.get('/:id', async (req, res) => {
   };
 });
 
+//update a specific user
+router.put('/:id', async (req, res) => {
+  try {
+    const userData = await User.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!userData[0]) {
+      res.status(404).json({ message: 'No user with this id!' });
+      return;
+    }
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Create a user
 router.post('/', async (req, res) => {
   try {
@@ -47,6 +65,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+//authenticating user login information 
 router.post("/login", async (req, res) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
@@ -78,6 +97,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//endind user session when logged off
 router.post('/logout', (req, res) => {
     if (req.session.logged_in) {
       req.session.destroy(() => {
