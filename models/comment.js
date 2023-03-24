@@ -5,13 +5,13 @@ class Comment extends Model {}
 
 Comment.init(
   {
-      comment_text: {
-          type: DataTypes.STRING,
-          allowNull: false,
-      },
+    comment_text: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
-      sequelize,
+    sequelize,
   }
 );
 
