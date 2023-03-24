@@ -1,6 +1,9 @@
 const router = require("express").Router();
-const { User } = require("../models");
+const { User, Comment, Post } = require("../models");
 const withAuth = require("../utils/auth");
+
+
+//render sequelize bodys in this page
 
 router.get("/", withAuth, async (req, res) => {
   try {
