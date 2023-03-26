@@ -28,8 +28,8 @@ router.get("/", withAuth, async (req, res) => {
     });
     res.status(200).json(postData);
   } catch (err) {
-    res.status.json(err);
-  }
+    res.status(400).json(err);
+  };
 });
 
 //update post

@@ -18,8 +18,14 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
-      include: [{ model: post}, { model: Comment}],
-      exclude: ['password']
+     where: {
+      id: req.params.id
+     },
+     include: [{
+      model: Post,
+      attributes: ['id', 'title', 'content', 'created_at']
+     }],
+
     });
 
     if (!userData) {
@@ -62,6 +68,24 @@ router.post('/', async (req, res) => {
     });
   } catch (err) {
     res.status(400).json(err);
+  }
+});
+
+//delete a user
+router.delete('/:id', async (req, res) => {
+  try {
+    const delUser = await User.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id
+    }
+    });
+
+    if (!delUser) {
+      res.status(404).json({ message: `User with that id not found!`})
+    }
+  }catch (err) {
+    res.status(400).json(err)
   }
 });
 

@@ -7,6 +7,11 @@ Post.init(
     {
         title: DataTypes.STRING,
         content: DataTypes.STRING,
+        created_at: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+        },
     },
     {
         sequelize,
